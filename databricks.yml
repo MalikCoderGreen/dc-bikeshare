@@ -36,7 +36,7 @@ resources:
       tasks:
         - task_key: bronze
           notebook_task:
-            notebook_path: ./src/bikeshare_bronze.py
+            notebook_path: ./src/bikeshare_bronze_nb.py
             base_parameters:
               catalog: ${var.catalog}
               bronze_schema: ${var.bronze_schema}
@@ -47,7 +47,7 @@ resources:
           depends_on:
             - task_key: bronze
           notebook_task:
-            notebook_path: ./src/bikeshare_silver.py
+            notebook_path: ./src/bikeshare_silver_nb.py
             base_parameters:
               catalog: ${var.catalog}
               bronze_schema: ${var.bronze_schema}
@@ -57,7 +57,7 @@ resources:
           depends_on:
             - task_key: silver
           notebook_task:
-            notebook_path: ./src/bikeshare_gold.py
+            notebook_path: ./src/bikeshare_gold_nb.py
             base_parameters:
               catalog: ${var.catalog}
               silver_schema: ${var.silver_schema}
