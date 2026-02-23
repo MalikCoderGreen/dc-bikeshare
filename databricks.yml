@@ -77,6 +77,7 @@ targets:
     mode: production
     workspace:
       host: https://dbc-b9fdb8d4-ebaa.cloud.databricks.com
+      root_path: /Workspace/Users/green.malik5@gmail.com/.bundle/${bundle.name}/${bundle.target}
     variables:
       catalog: staging_bikeshare
       source_bucket: s3://bikeshare-dc-data-staging
@@ -85,6 +86,7 @@ targets:
     mode: production
     workspace:
       host: https://dbc-1886d4dd-39a5.cloud.databricks.com
+      root_path: /Workspace/Users/green.malik5@gmail.com/.bundle/${bundle.name}/${bundle.target}
     variables:
       catalog: prod_bikeshare
       source_bucket: s3://bikeshare-dc-data
