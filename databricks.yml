@@ -89,4 +89,4 @@ targets:
       root_path: /Workspace/Users/green.malik5@gmail.com/.bundle/${bundle.name}/${bundle.target}
     variables:
       catalog: prod_bikeshare
-      source_bucket: s3://bikeshare-dc-data
+      source_bucket: s3://bikeshare-dc-data-prod
