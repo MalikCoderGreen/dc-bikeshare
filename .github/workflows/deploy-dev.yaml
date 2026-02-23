@@ -16,8 +16,8 @@ jobs:
         with:
           python-version: '3.11'
       
-      - name: Install Databricks CLI
-        run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+      - name: Setup Databricks CLI
+        uses: databricks/setup-cli@main
       
       - name: Configure Databricks CLI
         env:
@@ -32,6 +32,10 @@ jobs:
       
       - name: Validate DAB
         run: databricks bundle validate --target dev
+      
+      - name: Destroy existing bundle
+        run: databricks bundle destroy --target dev --auto-approve
+        continue-on-error: true
       
       - name: Deploy to dev workspace
         run: databricks bundle deploy --target dev
