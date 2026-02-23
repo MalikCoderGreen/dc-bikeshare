@@ -1,0 +1,40 @@
+name: Deploy to Dev
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install Databricks CLI
+        run: pip install databricks-cli
+      
+      - name: Configure Databricks CLI
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST_DEV }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN_DEV }}
+        run: |
+          cat > ~/.databrickscfg << EOF
+          [DEFAULT]
+          host = $DATABRICKS_HOST
+          token = $DATABRICKS_TOKEN
+          EOF
+      
+      - name: Validate DAB
+        run: databricks bundle validate --target dev
+      
+      - name: Deploy to dev workspace
+        run: databricks bundle deploy --target dev
+      
+      - name: Run pipeline
+        run: databricks bundle run bikeshare_etl --target dev
