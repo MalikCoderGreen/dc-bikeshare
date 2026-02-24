@@ -3,23 +3,28 @@ name: Deploy to Production
 on:
   push:
     branches: [main]
+    paths:
+      - "src/**"
+      - "databricks.yml"
+      - "requirements.txt"
+      - "tests/**"
 
 jobs:
   deploy-prod:
     runs-on: ubuntu-latest
-    environment: production  # This triggers manual approval
+    environment: production # This triggers manual approval
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
-      
+          python-version: "3.11"
+
       - name: Install Databricks CLI
         run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
-      
+
       - name: Configure Databricks CLI
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST_PROD }}
@@ -30,16 +35,16 @@ jobs:
           host = $DATABRICKS_HOST
           token = $DATABRICKS_TOKEN
           EOF
-      
+
       - name: Validate DAB
         run: databricks bundle validate --target prod
-      
+
       - name: Deploy to production workspace
         run: databricks bundle deploy --target prod
-      
+
       - name: Run production pipeline
         run: databricks bundle run bikeshare_etl --target prod
-      
+
       - name: Deployment summary
         run: |
           echo "✅ Production deployment successful"

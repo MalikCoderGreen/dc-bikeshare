@@ -3,6 +3,11 @@ name: Deploy to Dev
 on:
   push:
     branches: [dev]
+    paths:
+      - "src/**"
+      - "databricks.yml"
+      - "requirements.txt"
+      - "tests/**"
 
 jobs:
   deploy-dev:
@@ -10,15 +15,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
-      
+          python-version: "3.11"
+
       - name: Setup Databricks CLI
         uses: databricks/setup-cli@main
-      
+
       - name: Configure Databricks CLI
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST_DEV }}
@@ -29,16 +34,16 @@ jobs:
           host = $DATABRICKS_HOST
           token = $DATABRICKS_TOKEN
           EOF
-      
+
       - name: Validate DAB
         run: databricks bundle validate --target dev
-      
+
       - name: Destroy existing bundle
         run: databricks bundle destroy --target dev --auto-approve
         continue-on-error: true
-      
+
       - name: Deploy to dev workspace
         run: databricks bundle deploy --target dev
-      
+
       - name: Run pipeline
         run: databricks bundle run bikeshare_etl --target dev
