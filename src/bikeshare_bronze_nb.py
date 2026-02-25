@@ -58,11 +58,6 @@ df = df.select(
 
 # COMMAND ----------
 
-# Configure Spark to ignore missing files during streaming
-# won't work with severless compute --> spark.conf.set("spark.sql.files.ignoreMissingFiles", "true")
-
-# COMMAND ----------
-
 # Write stream to bronze Delta table
 writeStream = (df.writeStream
     .format("delta")

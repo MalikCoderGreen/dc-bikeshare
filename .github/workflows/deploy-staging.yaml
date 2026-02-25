@@ -22,11 +22,6 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Build wheel
-        run: |
-          pip install build
-          python -m build --wheel
-
       - name: Install Databricks CLI
         run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
@@ -40,12 +35,6 @@ jobs:
           host = $DATABRICKS_HOST
           token = $DATABRICKS_TOKEN
           EOF
-
-      - name: Upload wheel to Volume
-        run: |
-          databricks fs cp --overwrite \
-            ./dist/bs_transformations-0.1.0-py3-none-any.whl \
-            dbfs:/Volumes/staging_bikeshare/libs/packages/bs_transformations-0.1.0-py3-none-any.whl
 
       - name: Validate DAB
         run: databricks bundle validate --target staging
