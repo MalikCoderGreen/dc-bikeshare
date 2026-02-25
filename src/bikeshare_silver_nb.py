@@ -95,12 +95,12 @@ bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_month", F.month(F.col
 bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_year", F.year(F.col("started_at")))
 bikeshare_silver_df = bikeshare_silver_df.withColumnRenamed("ride_duration (minutes)", "ride_duration_minutes")
 
-bikeshare_silver_df = bikeshare_silver_df.withColumn("trip_type", bs_transformations.classify_trip_type)
+bikeshare_silver_df = bs_transformations.classify_trip_type(bikeshare_silver_df)
 
 # COMMAND ----------
 
-bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_distance_km", bs_transformations.calculate_haversine_dist)
-bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_distance_km", bs_transformations.determine_trip_type)
+bikeshare_silver_df = bs_transformations.calculate_haversine_dist(bikeshare_silver_df)
+bikeshare_silver_df = bs_transformations.determine_trip_type(bikeshare_silver_df)
 
 # COMMAND ----------
 

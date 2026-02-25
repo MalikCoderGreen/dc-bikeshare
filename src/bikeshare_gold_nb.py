@@ -29,7 +29,7 @@ bikeshare_gold_df = spark.read.table(f"{catalog}.{silver_schema}.dc_rideshare_st
 # COMMAND ----------
 
 
-bikeshare_gold_df = bikeshare_gold_df.withColumn("_data_quality_flag", bs_transformations.is_ride_supicious)
+bikeshare_gold_df = bs_transformations._data_quality_flags(bikeshare_gold_df)
 
 bikeshare_gold_df = (bikeshare_gold_df.drop("_rescued_data", "is_valid")
                  .withColumn("ride_date", F.to_date("started_at"))
