@@ -1,0 +1,655 @@
+11:25:05 Info: start pid=15626 version=0.277.0 args="databricks, bundle, deploy, --target, dev, --verbose, --debug"
+11:25:05 Debug: Found bundle root at /home/leek/databricks_work/bundle_projs/dc-bikeshare (file /home/leek/databricks_work/bundle_projs/dc-bikeshare/databricks.yml) pid=15626
+11:25:05 Info: Phase: load pid=15626
+11:25:05 Debug: Apply pid=15626 mutator=EntryPoint
+11:25:05 Debug: Apply pid=15626 mutator=scripts.preinit
+11:25:05 Debug: No script defined for preinit, skipping pid=15626 mutator=scripts.preinit
+11:25:05 Debug: Apply pid=15626 mutator=ProcessRootIncludes
+11:25:05 Debug: Apply pid=15626 mutator=VerifyCliVersion
+11:25:05 Debug: Apply pid=15626 mutator=EnvironmentsToTargets
+11:25:05 Debug: Apply pid=15626 mutator=ComputeIdToClusterId
+11:25:05 Debug: Apply pid=15626 mutator=InitializeVariables
+11:25:05 Debug: Apply pid=15626 mutator=DefineDefaultTarget(default)
+11:25:05 Debug: Apply pid=15626 mutator=validate:unique_resource_keys
+11:25:05 Debug: Apply pid=15626 mutator=SelectTarget(dev)
+11:25:05 Debug: Loading profile leek-dev-ws because of host match pid=15626
+11:25:05 Debug: Apply pid=15626 mutator=<func>
+11:25:05 Debug: Apply pid=15626 mutator=<func>
+11:25:05 Info: Phase: initialize pid=15626
+11:25:05 Debug: Apply pid=15626 mutator=validate:AllResourcesHaveValues
+11:25:05 Debug: Apply pid=15626 mutator=validate:interpolation_in_auth_config
+11:25:05 Debug: Apply pid=15626 mutator=validate:no_interpolation_in_bundle_name
+11:25:05 Debug: Apply pid=15626 mutator=validate:scripts
+11:25:05 Debug: Apply pid=15626 mutator=RewriteSyncPaths
+11:25:05 Debug: Apply pid=15626 mutator=SyncDefaultPath
+11:25:05 Debug: Apply pid=15626 mutator=SyncInferRoot
+11:25:05 Debug: Apply pid=15626 mutator=PopulateCurrentUser
+11:25:05 Debug: GET /api/2.0/preview/scim/v2/Me
+< HTTP/2.0 200 OK
+< {
+<   "active": true,
+<   "displayName": "Malik Green",
+<   "emails": [
+<     {
+<       "primary": true,
+<       "type": "work",
+<       "value": "green.malik5@gmail.com"
+<     }
+<   ],
+<   "entitlements": [
+<     {
+<       "value": "allow-cluster-create"
+<     },
+<     {
+<       "value": "allow-instance-pool-create"
+<     }
+<   ],
+<   "groups": [
+<     {
+<       "$ref": "Groups/87549331464696",
+<       "display": "users",
+<       "type": "direct",
+<       "value": "87549331464696"
+<     },
+<     {
+<       "$ref": "Groups/86595636361647",
+<       "display": "admins",
+<       "type": "direct",
+<       "value": "86595636361647"
+<     }
+<   ],
+<   "id": "1816658072648317",
+<   "name": {
+<     "familyName": "Green",
+<     "givenName": "Malik"
+<   },
+<   "schemas": [
+<     "urn:ietf:params:scim:schemas:core:2.0:User",
+<     "urn:ietf:params:scim:schemas:extension:workspace:2.0:User"
+<   ],
+<   "userName": "green.malik5@gmail.com"
+< } pid=15626 mutator=PopulateCurrentUser sdk=true
+11:25:05 Debug: Apply pid=15626 mutator=LoadGitDetails
+11:25:05 Debug: Apply pid=15626 mutator=ApplySourceLinkedDeploymentPreset
+11:25:05 Debug: Apply pid=15626 mutator=DefineDefaultWorkspaceRoot
+11:25:05 Debug: Apply pid=15626 mutator=ExpandWorkspaceRoot
+11:25:05 Debug: Apply pid=15626 mutator=DefaultWorkspacePaths
+11:25:05 Debug: Apply pid=15626 mutator=PrependWorkspacePrefix
+11:25:05 Debug: Apply pid=15626 mutator=RewriteWorkspacePrefix
+11:25:05 Debug: Apply pid=15626 mutator=SetVariables
+11:25:05 Debug: Apply pid=15626 mutator=ResolveVariableReferences
+11:25:05 Debug: Apply pid=15626 mutator=ResolveLookupVariables
+11:25:05 Debug: Apply pid=15626 mutator=ResolveVariableReferences
+11:25:05 Debug: Apply pid=15626 mutator=validate:volume-path
+11:25:05 Debug: Apply pid=15626 mutator=ApplyTargetMode
+11:25:05 Info: Development mode: disabling deployment lock since bundle.deployment.lock.enabled is not set to true pid=15626 mutator=ApplyTargetMode
+11:25:05 Debug: Apply pid=15626 mutator=ConfigureWSFS
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=ResolveVariableReferences(resources)
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=LogResourceReferences
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=NormalizePaths
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=TranslatePathsDashboards
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=ResolveVariableReferences(resources)
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=ExpandPipelineGlobPaths
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=MergeJobClusters
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=MergeJobParameters
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=MergeJobTasks
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=MergePipelineClusters
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=MergeApps
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=CaptureSchemaDependency
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=ConfigureDashboardSerializedDashboard
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=JobClustersFixups
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=ClusterFixups
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=ModelServingEndpointFixups
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=SetRunAs
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=OverrideCompute
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=ApplyPresets
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=validate:SingleNodeCluster
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.dashboards.*, parent_path, /Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/resources)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.dashboards.*, embed_credentials, false)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.volumes.*, volume_type, MANAGED)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.alerts.*, parent_path, /Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/resources)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*, name, Untitled)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*, max_concurrent_runs, 1)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.schedule, pause_status, UNPAUSED)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.trigger, pause_status, UNPAUSED)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.continuous, pause_status, UNPAUSED)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.task[*].dbt_task, schema, default)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.task[*].for_each_task.task.dbt_task, schema, default)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.job_clusters[*].new_cluster, num_workers, 0)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.job_clusters[*].new_cluster.workload_type.clients, notebooks, true)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.jobs.*.job_clusters[*].new_cluster.workload_type.clients, jobs, true)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.pipelines.*, edition, ADVANCED)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.pipelines.*, channel, CURRENT)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.sql_warehouses.*, auto_stop_mins, 120)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.sql_warehouses.*, enable_photon, true)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.sql_warehouses.*, max_num_clusters, 1)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.sql_warehouses.*, spot_instance_policy, COST_OPTIMIZED)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.apps.*, description, )"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.clusters.*, autotermination_minutes, 60)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.clusters.*.workload_type.clients, notebooks, true)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator="SetDefaultMutator(resources.clusters.*.workload_type.clients, jobs, true)"
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=DefaultQueueing
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=ApplyBundlePermissions
+11:25:05 Debug: Apply pid=15626 mutator=ProcessStaticResources mutator=FixPermissions
+11:25:05 Debug: Apply pid=15626 mutator=PythonMutator(load_resources)
+11:25:05 Debug: Apply pid=15626 mutator=PythonMutator(apply_mutators)
+11:25:05 Debug: Apply pid=15626 mutator=validate:required
+11:25:05 Debug: Apply pid=15626 mutator=validate:enum
+11:25:05 Debug: Apply pid=15626 mutator=validate:validate_dashboard_etags
+11:25:05 Debug: Apply pid=15626 mutator=CheckPermissions
+11:25:05 Debug: Apply pid=15626 mutator=TranslatePaths
+11:25:05 Debug: Apply pid=15626 mutator=PythonWrapperWarning
+11:25:05 Debug: Apply pid=15626 mutator=ApplyArtifactsDynamicVersion
+11:25:05 Debug: Apply pid=15626 mutator=artifacts.Prepare
+11:25:05 Info: No local tasks in databricks.yml config, skipping auto detect pid=15626 mutator=artifacts.Prepare
+11:25:05 Debug: Apply pid=15626 mutator=apps.Validate
+11:25:05 Debug: Apply pid=15626 mutator=ValidateTargetMode
+11:25:05 Debug: Apply pid=15626 mutator=ValidateSharedRootPermissions
+11:25:05 Debug: Apply pid=15626 mutator=metadata.AnnotateJobs
+11:25:05 Debug: Apply pid=15626 mutator=metadata.AnnotatePipelines
+11:25:05 Debug: Apply pid=15626 mutator=scripts.postinit
+11:25:05 Debug: No script defined for postinit, skipping pid=15626 mutator=scripts.postinit
+11:25:05 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/resources.json&return_export_info=true
+< HTTP/2.0 404 Not Found
+< {
+<   "error_code": "RESOURCE_DOES_NOT_EXIST",
+<   "message": "Path (/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/resources.json) doe... (11 more bytes)"
+< } pid=15626 sdk=true
+11:25:05 Debug: non-retriable error: Path (/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/resources.json) doesn't exist. pid=15626 sdk=true
+11:25:06 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/terraform.tfstate&return_export_info=true
+< HTTP/2.0 404 Not Found
+< {
+<   "error_code": "RESOURCE_DOES_NOT_EXIST",
+<   "message": "Path (/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/terraform.tfstate) ... (14 more bytes)"
+< } pid=15626 sdk=true
+11:25:06 Debug: non-retriable error: Path (/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/terraform.tfstate) doesn't exist. pid=15626 sdk=true
+11:25:06 Info: Available resource state files (from least to most preferred): [/home/leek/databricks_work/bundle_projs/dc-bikeshare/.databricks/bundle/dev/terraform/terraform.tfstate: local terraform state serial=1 lineage="bbdcbe32-78e5-2953-3f74-f330561231d8"] pid=15626
+11:25:06 Debug: Apply pid=15626 mutator=fast_validate(readonly)
+11:25:06 Debug: ApplyParallel pid=15626 mutator=fast_validate(readonly) mutator=validate:job_cluster_key_defined
+11:25:06 Debug: ApplyParallel pid=15626 mutator=fast_validate(readonly) mutator=validate:job_task_cluster_spec
+11:25:06 Debug: ApplyParallel pid=15626 mutator=fast_validate(readonly) mutator=validate:artifact_paths
+11:25:06 Info: Phase: build pid=15626
+11:25:06 Debug: Apply pid=15626 mutator=scripts.prebuild
+11:25:06 Debug: No script defined for prebuild, skipping pid=15626 mutator=scripts.prebuild
+11:25:06 Debug: Apply pid=15626 mutator=artifacts.Build
+11:25:06 Debug: Apply pid=15626 mutator=scripts.postbuild
+11:25:06 Debug: No script defined for postbuild, skipping pid=15626 mutator=scripts.postbuild
+11:25:06 Debug: Apply pid=15626 mutator=ResolveVariableReferences
+11:25:06 Debug: Apply pid=15626 mutator=ResolveVariableReferences(resources)
+11:25:06 Info: Phase: deploy pid=15626
+11:25:06 Debug: Apply pid=15626 mutator=scripts.predeploy
+11:25:06 Debug: No script defined for predeploy, skipping pid=15626 mutator=scripts.predeploy
+11:25:06 Debug: Apply pid=15626 mutator=lock:acquire
+11:25:06 Info: Skipping; locking is disabled pid=15626 mutator=lock:acquire
+11:25:06 Debug: Apply pid=15626 mutator=CheckDashboardsModifiedRemotely
+11:25:06 Debug: Apply pid=15626 mutator=deploy:state-pull
+11:25:06 Info: Opening remote deployment state file pid=15626 mutator=deploy:state-pull
+11:25:06 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/deployment.json&return_export_info=true
+< HTTP/2.0 404 Not Found
+< {
+<   "error_code": "RESOURCE_DOES_NOT_EXIST",
+<   "message": "Path (/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/deployment.json) do... (12 more bytes)"
+< } pid=15626 mutator=deploy:state-pull sdk=true
+11:25:06 Debug: non-retriable error: Path (/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/deployment.json) doesn't exist. pid=15626 mutator=deploy:state-pull sdk=true
+11:25:06 Info: Remote deployment state file does not exist pid=15626 mutator=deploy:state-pull
+11:25:06 Debug: Apply pid=15626 mutator=ValidateGitDetails
+11:25:06 Debug: Apply pid=15626 mutator=check-running-resources
+11:25:06 Debug: Apply pid=15626 mutator=libraries.ExpandGlobReferences
+11:25:06 Debug: Apply pid=15626 mutator=CheckForSameNameLibraries
+11:25:06 Debug: Apply pid=15626 mutator=SwitchToPatchedWheels
+11:25:06 Debug: Apply pid=15626 mutator=TransformWheelTask
+11:25:06 Debug: Apply pid=15626 mutator=artifacts.CleanUp
+11:25:06 Debug: POST /api/2.0/workspace/delete
+> {
+>   "path": "/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/artifacts/.internal",
+>   "recursive": true
+> }
+< HTTP/2.0 404 Not Found
+< {
+<   "error_code": "RESOURCE_DOES_NOT_EXIST",
+<   "message": "Path (/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/artifacts/.internal) does... (10 more bytes)"
+< } pid=15626 mutator=artifacts.CleanUp sdk=true
+11:25:06 Debug: non-retriable error: Path (/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/artifacts/.internal) doesn't exist. pid=15626 mutator=artifacts.CleanUp sdk=true
+11:25:06 Debug: failed to delete /Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/artifacts: file does not exist: /Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/artifacts/.internal pid=15626 mutator=artifacts.CleanUp
+11:25:06 Debug: POST /api/2.0/workspace/mkdirs
+> {
+>   "path": "/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/artifacts/.internal"
+> }
+< HTTP/2.0 200 OK
+< {} pid=15626 mutator=artifacts.CleanUp sdk=true
+11:25:06 Debug: Apply pid=15626 mutator=libraries.Upload
+11:25:06 Debug: Apply pid=15626 mutator=files.Upload
+Uploading bundle files to /Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/files...
+11:25:06 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/files
+< HTTP/2.0 404 Not Found
+< {
+<   "error_code": "RESOURCE_DOES_NOT_EXIST",
+<   "message": "Path (/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/files) doesn't exist."
+< } pid=15626 mutator=files.Upload sdk=true
+11:25:06 Debug: non-retriable error: Path (/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/files) doesn't exist. pid=15626 mutator=files.Upload sdk=true
+11:25:06 Debug: POST /api/2.0/workspace/mkdirs
+> {
+>   "path": "/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/files"
+> }
+< HTTP/2.0 200 OK
+< {} pid=15626 mutator=files.Upload sdk=true
+11:25:06 Debug: GET /api/2.0/workspace/get-status?path=/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/files
+< HTTP/2.0 200 OK
+< {
+<   "object_id": 4355317384373953,
+<   "object_type": "DIRECTORY",
+<   "path": "/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/files",
+<   "resource_id": "4355317384373953"
+< } pid=15626 mutator=files.Upload sdk=true
+11:25:07 Debug: Path /Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/files has type directory (ID: 4355317384373953) pid=15626 mutator=files.Upload
+Action: PUT: deploy_debug.log
+11:25:07 Debug: POST /api/2.0/workspace-files/import-file/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/files/deploy_debug.log?overwrite=true
+> 11:25:05 Info: start pid=15626 version=0.277.0 args="databricks, bundle, deploy, --target, dev, ... (17270 more bytes)
+< HTTP/2.0 200 OK pid=15626 mutator=files.Upload sdk=true
+Uploaded deploy_debug.log
+11:25:07 Info: Uploaded bundle files pid=15626 mutator=files.Upload
+Initial Sync Complete
+11:25:07 Debug: Apply pid=15626 mutator=deploy:state-update
+11:25:07 Info: Loading deployment state from /home/leek/databricks_work/bundle_projs/dc-bikeshare/.databricks/bundle/dev/deployment.json pid=15626 mutator=deploy:state-update
+11:25:07 Debug: Apply pid=15626 mutator=deploy:state-push
+11:25:07 Info: Writing local deployment state file to remote state directory pid=15626 mutator=deploy:state-push
+11:25:07 Debug: POST /api/2.0/workspace-files/import-file/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/deployment.json?overwrite=true
+> {
+>   "cli_version": "0.277.0",
+>   "files": [
+>     {
+>       "is_notebook": false,
+>       "local_path": "requirements.txt"
+>     },
+>     {
+>       "is_notebook": true,
+>       "local_path": "src/bikeshare_bronze.py"
+>     },
+>     {
+>       "is_notebook": true,
+>       "local_path": "src/bikeshare_silver.py"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "tests/test_transformations.py"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".github/workflows/.deploy-dev.yaml.swp"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".github/workflows/deploy-dev.yaml"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".github/workflows/deploy-staging.yaml"
+>     },
+>     {
+>       "is_notebook": true,
+>       "local_path": "src/bikeshare_gold.py"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "deploy_debug.log"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".github/workflows/deploy-prod.yaml"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".gitignore"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "databricks.yml"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "im_lazy.sh"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "src/files_bikeshare.zip"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "tests/conftest.py"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".github/workflows/test.yaml"
+>     }
+>   ],
+>   "id": "593c1163-8c7b-4441-89f8-d465f97409cb",
+>   "seq": 2,
+>   "timestamp": "2026-02-23T16:25:07.552275826Z",
+>   "version": 1
+> }
+< HTTP/2.0 404 Not Found
+< {
+<   "message": "Request failed for POST /Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/d... (14 more bytes)"
+< } pid=15626 mutator=deploy:state-push sdk=true
+11:25:07 Debug: non-retriable error: Request failed for POST /Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/deployment.json pid=15626 mutator=deploy:state-push sdk=true
+11:25:07 Debug: POST /api/2.0/workspace/mkdirs
+> {
+>   "path": "/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state"
+> }
+< HTTP/2.0 200 OK
+< {} pid=15626 mutator=deploy:state-push sdk=true
+11:25:08 Debug: POST /api/2.0/workspace-files/import-file/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/deployment.json?overwrite=true
+> {
+>   "cli_version": "0.277.0",
+>   "files": [
+>     {
+>       "is_notebook": false,
+>       "local_path": "requirements.txt"
+>     },
+>     {
+>       "is_notebook": true,
+>       "local_path": "src/bikeshare_bronze.py"
+>     },
+>     {
+>       "is_notebook": true,
+>       "local_path": "src/bikeshare_silver.py"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "tests/test_transformations.py"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".github/workflows/.deploy-dev.yaml.swp"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".github/workflows/deploy-dev.yaml"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".github/workflows/deploy-staging.yaml"
+>     },
+>     {
+>       "is_notebook": true,
+>       "local_path": "src/bikeshare_gold.py"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "deploy_debug.log"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".github/workflows/deploy-prod.yaml"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".gitignore"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "databricks.yml"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "im_lazy.sh"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "src/files_bikeshare.zip"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": "tests/conftest.py"
+>     },
+>     {
+>       "is_notebook": false,
+>       "local_path": ".github/workflows/test.yaml"
+>     }
+>   ],
+>   "id": "593c1163-8c7b-4441-89f8-d465f97409cb",
+>   "seq": 2,
+>   "timestamp": "2026-02-23T16:25:07.552275826Z",
+>   "version": 1
+> }
+< HTTP/2.0 200 OK pid=15626 mutator=deploy:state-push sdk=true
+11:25:08 Debug: Apply pid=15626 mutator=ApplyWorkspaceRootPermissions
+11:25:08 Debug: Apply pid=15626 mutator=trackUsedCompute
+11:25:08 Debug: Apply pid=15626 mutator=deploy:resource_path_mkdir
+11:25:08 Debug: Apply pid=15626 mutator=terraform.Interpolate
+11:25:08 Debug: Apply pid=15626 mutator=terraform.Write
+11:25:08 Debug: Apply pid=15626 mutator=terraform.Plan
+11:25:08 Debug: Using Terraform from DATABRICKS_TF_EXEC_PATH at /home/leek/.vscode-server/extensions/databricks.databricks-2.10.5-linux-x64/bin/dependencies/terraform pid=15626 mutator=terraform.Plan
+11:25:08 Debug: DATABRICKS_TF_PROVIDER_VERSION as 1.104.0 does not match the current version 1.96.0, ignoring DATABRICKS_TF_CLI_CONFIG_FILE pid=15626 mutator=terraform.Plan
+11:25:08 Debug: Environment variables for Terraform: HOME, PATH, DATABRICKS_USER_AGENT_EXTRA, DATABRICKS_HOST, DATABRICKS_TOKEN, DATABRICKS_AUTH_TYPE pid=15626 mutator=terraform.Plan
+11:25:10 Debug: Planning complete and persisted at /home/leek/databricks_work/bundle_projs/dc-bikeshare/.databricks/bundle/dev/terraform/plan
+ pid=15626 mutator=terraform.Plan
+Deploying resources...
+11:25:10 Debug: Apply pid=15626 mutator=terraform.Apply
+11:25:10 Debug: No changes in plan. Skipping terraform apply. pid=15626 mutator=terraform.Apply
+11:25:10 Debug: Apply pid=15626 mutator=statemgmt.Push
+Updating deployment state...
+11:25:10 Debug: POST /api/2.0/workspace-files/import-file/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/terraform.tfstate?overwrite=true
+> {
+>   "check_results": null,
+>   "lineage": "bbdcbe32-78e5-2953-3f74-f330561231d8",
+>   "outputs": {},
+>   "resources": [
+>     {
+>       "instances": [
+>         {
+>           "attributes": {
+>             "always_running": false,
+>             "budget_policy_id": null,
+>             "continuous": null,
+>             "control_run_state": false,
+>             "dbt_task": null,
+>             "deployment": [
+>               {
+>                 "kind": "BUNDLE",
+>                 "metadata_file_path": "/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/metadata.json"
+>               }
+>             ],
+>             "description": null,
+>             "edit_mode": "UI_LOCKED",
+>             "email_notifications": [
+>               {
+>                 "no_alert_for_skipped_runs": false,
+>                 "on_duration_warning_threshold_exceeded": null,
+>                 "on_failure": [
+>                   "green.leek47@gmail.com"
+>                 ],
+>                 "on_start": null,
+>                 "on_streaming_backlog_exceeded": null,
+>                 "on_success": null
+>               }
+>             ],
+>             "environment": null,
+>             "existing_cluster_id": null,
+>             "format": "MULTI_TASK",
+>             "git_source": null,
+>             "health": null,
+>             "id": "1596450542623",
+>             "job_cluster": null,
+>             "library": null,
+>             "max_concurrent_runs": 4,
+>             "max_retries": 0,
+>             "min_retry_interval_millis": 0,
+>             "name": "[dev green_malik5] bikeshare_etl_dev",
+>             "new_cluster": null,
+>             "notebook_task": null,
+>             "notification_settings": null,
+>             "parameter": null,
+>             "performance_target": null,
+>             "pipeline_task": null,
+>             "provider_config": null,
+>             "python_wheel_task": null,
+>             "queue": [
+>               {
+>                 "enabled": true
+>               }
+>             ],
+>             "retry_on_timeout": false,
+>             "run_as": [
+>               {
+>                 "service_principal_name": "",
+>                 "user_name": "green.malik5@gmail.com"
+>               }
+>             ],
+>             "run_job_task": null,
+>             "schedule": null,
+>             "spark_jar_task": null,
+>             "spark_python_task": null,
+>             "spark_submit_task": null,
+>             "tags": {
+>               "dev": "green_malik5"
+>             },
+>             "task": [
+>               {
+>                 "clean_rooms_notebook_task": null,
+>                 "condition_task": null,
+>                 "dashboard_task": null,
+>                 "dbt_cloud_task": null,
+>                 "dbt_platform_task": null,
+>                 "dbt_task": null,
+>                 "depends_on": null,
+>                 "description": "",
+>                 "disable_auto_optimization": false,
+>                 "disabled": false,
+>                 "email_notifications": [
+>                   {
+>                     "no_alert_for_skipped_runs": false,
+>                     "on_duration_warning_threshold_exceeded": null,
+>                     "on_failure": null,
+>                     "on_start": null,
+>                     "on_streaming_backlog_exceeded": null,
+>                     "on_success": null
+>                   }
+>                 ],
+>                 "environment_key": "",
+>                 "existing_cluster_id": "",
+>                 "for_each_task": null,
+>                 "gen_ai_compute_task": null,
+>                 "health": null,
+>                 "job_cluster_key": "",
+>                 "library": null,
+>                 "max_retries": 0,
+>                 "min_retry_interval_millis": 0,
+>                 "new_cluster": null,
+>                 "notebook_task": [
+>                   {
+>                     "base_parameters": {
+>                       "bronze_schema": "bronze",
+>                       "catalog": "dev_bikeshare",
+>                       "source_bucket": "s3://bikeshare-dc-data-dev",
+>                       "volume_name": "raw_landing_zone"
+>                     },
+>                     "notebook_path": "/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/files/src/bikeshare_bronze",
+>                     "source": "WORKSPACE",
+>                     "warehouse_id": ""
+>                   }
+>                 ],
+>                 "notification_settings": null,
+>                 "pipeline_task": null,
+>                 "power_bi_task": null,
+>                 "python_wheel_task": null,
+>                 "retry_on_timeout": false,
+>                 "run_if": "ALL_SUCCESS",
+>                 "run_job_task": null,
+>                 "spark_jar_task": null,
+>                 "spark_python_task": null,
+>                 "spark_submit_task": null,
+>                 "sql_task": null,
+>                 "task_key": "bronze",
+>                 "timeout_seconds": 0,
+>                 "webhook_notifications": null
+>               },
+>               "... (2 additional elements)"
+>             ],
+>             "timeout_seconds": 0,
+>             "timeouts": null,
+>             "trigger": null,
+>             "url": "https://dbc-b4813f44-2c67.cloud.databricks.com/#job/1596450542623",
+>             "usage_policy_id": null,
+>             "webhook_notifications": [
+>               {
+>                 "on_duration_warning_threshold_exceeded": null,
+>                 "on_failure": null,
+>                 "on_start": null,
+>                 "on_streaming_backlog_exceeded": null,
+>                 "on_success": null
+>               }
+>             ]
+>           },
+>           "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJ1cGRhdGUi... (52 more bytes)",
+>           "schema_version": 2,
+>           "sensitive_attributes": null
+>         }
+>       ],
+>       "mode": "managed",
+>       "name": "bikeshare_etl",
+>       "provider": "provider[\"registry.terraform.io/databricks/databricks\"]",
+>       "type": "databricks_job"
+>     }
+>   ],
+>   "serial": 1,
+>   "terraform_version": "1.5.5",
+>   "version": 4
+> }
+< HTTP/2.0 200 OK pid=15626 mutator=statemgmt.Push sdk=true
+11:25:10 Debug: Apply pid=15626 mutator=statemgmt.Load
+11:25:10 Debug: Apply pid=15626 mutator=metadata.Compute
+11:25:10 Debug: Apply pid=15626 mutator=metadata.Upload
+11:25:11 Debug: POST /api/2.0/workspace-files/import-file/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/state/metadata.json?overwrite=true
+> {
+>   "config": {
+>     "bundle": {
+>       "git": {
+>         "branch": "main",
+>         "bundle_root_path": ".",
+>         "commit": "16dd5f9fb4fdf9485ffa1b256900918013a927a3",
+>         "origin_url": "git@github.com:MalikCoderGreen/dc-bikeshare.git"
+>       }
+>     },
+>     "presets": {
+>       "source_linked_deployment": false
+>     },
+>     "resources": {
+>       "jobs": {
+>         "bikeshare_etl": {
+>           "id": "1596450542623",
+>           "relative_path": "databricks.yml"
+>         }
+>       }
+>     },
+>     "workspace": {
+>       "file_path": "/Workspace/Users/green.malik5@gmail.com/.bundle/dc_bikeshare/dev/files"
+>     }
+>   },
+>   "extra": {},
+>   "version": 1
+> }
+< HTTP/2.0 200 OK pid=15626 mutator=metadata.Upload sdk=true
+Deployment complete!
+11:25:11 Debug: Apply pid=15626 mutator=scripts.postdeploy
+11:25:11 Debug: No script defined for postdeploy, skipping pid=15626 mutator=scripts.postdeploy
+11:25:11 Debug: Apply pid=15626 mutator=lock:release
+11:25:11 Info: Skipping; locking is disabled pid=15626 mutator=lock:release
+11:25:11 Info: completed execution pid=15626 exit_code=0
+11:25:11 Debug: POST /telemetry-ext
+> {
+>   "items": null,
+>   "protoLogs": [
+>     "{\"frontend_log_event_id\":\"4ebf13ab-b70f-4e62-9a5d-560194245eea\",\"entry\":{\"databricks_cli_log\":{\"... (2301 more bytes)"
+>   ],
+>   "uploadTime": 1771863911266
+> }
+< HTTP/2.0 200 OK
+< {
+<   "errors": null,
+<   "numProtoSuccess": 1,
+<   "numRealtimeSuccess": 0,
+<   "numSuccess": 0
+< } pid=15626 sdk=true
+11:25:11 Debug: All 1 logs uploaded successfully pid=15626

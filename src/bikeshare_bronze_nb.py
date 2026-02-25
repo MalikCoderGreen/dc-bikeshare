@@ -9,9 +9,6 @@ catalog = dbutils.widgets.get("catalog")
 bronze_schema = dbutils.widgets.get("bronze_schema")
 source_bucket = dbutils.widgets.get("source_bucket")
 volume_name = dbutils.widgets.get("volume_name")
-
-# print(f"Running bronze with catalog={catalog}, bucket={source_bucket}")
-
 # COMMAND ----------
 
 # Create catalog if it doesn't exist
@@ -58,11 +55,6 @@ df = df.select(
     "end_lng", 
     "member_casual"
 )
-
-# COMMAND ----------
-
-# Configure Spark to ignore missing files during streaming
-# won't work with severless compute --> spark.conf.set("spark.sql.files.ignoreMissingFiles", "true")
 
 # COMMAND ----------
 
