@@ -81,18 +81,18 @@ is_weekend: Boolean flag
 ride_month, ride_year: For partitioning
 """
 # need to extract the seconds property from the struct thats in the ride_duration F.column
-bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_duration (minutes)", F.timestamp_diff("MINUTE", F.F.col("started_at"), F.F.col("ended_at")))
+bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_duration (minutes)", F.timestamp_diff("MINUTE", F.col("started_at"), F.col("ended_at")))
 
 # day of the week from started_at
-bikeshare_silver_df = bikeshare_silver_df.withColumn("day_of_week", F.dayofweek(F.F.col("started_at")))
+bikeshare_silver_df = bikeshare_silver_df.withColumn("day_of_week", F.dayofweek(F.col("started_at")))
 # hour of day
-bikeshare_silver_df = bikeshare_silver_df.withColumn("hour_of_day", F.hour(F.F.col("started_at")))
+bikeshare_silver_df = bikeshare_silver_df.withColumn("hour_of_day", F.hour(F.col("started_at")))
 
 # determine if day is weekedend
-bikeshare_silver_df = bikeshare_silver_df.withColumn("is_weekend", F.when(F.F.col("day_of_week").isin([6,7]), True).otherwise(False))
+bikeshare_silver_df = bikeshare_silver_df.withColumn("is_weekend", F.when(F.col("day_of_week").isin([6,7]), True).otherwise(False))
 # extract month and year from started_at
-bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_month", F.month(F.F.col("started_at")))
-bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_year", F.year(F.F.col("started_at")))
+bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_month", F.month(F.col("started_at")))
+bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_year", F.year(F.col("started_at")))
 bikeshare_silver_df = bikeshare_silver_df.withColumnRenamed("ride_duration (minutes)", "ride_duration_minutes")
 
 bikeshare_silver_df = bikeshare_silver_df.withColumn("trip_type", bs_transformations.classify_trip_type)
@@ -110,21 +110,21 @@ Filter out rides where ended_at <= started_at (invalid times)
 Remove rides with duration < 1 minute or > 24 hours (likely errors)
 Flag or remove rides with impossible distances (e.g., > 50 miles for bikeshare)
 """
-bikeshare_silver_df = bikeshare_silver_df.filter(F.F.col("ended_at") > F.F.col("started_at"))
-bikeshare_silver_df = bikeshare_silver_df.filter((F.F.col("ride_duration_minutes") >= 1) & (F.F.col("ride_duration_minutes") <= 1440))
-bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_distance_km", F.round(F.F.col("ride_distance_km") / 1.609, 2))
+bikeshare_silver_df = bikeshare_silver_df.filter(F.col("ended_at") > F.col("started_at"))
+bikeshare_silver_df = bikeshare_silver_df.filter((F.col("ride_duration_minutes") >= 1) & (F.col("ride_duration_minutes") <= 1440))
+bikeshare_silver_df = bikeshare_silver_df.withColumn("ride_distance_km", F.round(F.col("ride_distance_km") / 1.609, 2))
 bikeshare_silver_df = bikeshare_silver_df.withColumnRenamed("ride_distance_km", "ride_distance_miles")
-bikeshare_silver_df = bikeshare_silver_df.filter(F.F.col("ride_distance_miles") <= 50)
+bikeshare_silver_df = bikeshare_silver_df.filter(F.col("ride_distance_miles") <= 50)
 
 # COMMAND ----------
 
-bikeshare_silver_df = bikeshare_silver_df.select(*[F.trim(F.F.col(c[0])).alias(c[0]) if c[1] == 'string' else F.F.col(c[0]) for c in bikeshare_silver_df.dtypes])
-bikeshare_silver_df = bikeshare_silver_df.withColumn("member_casual", F.lower(F.F.col("member_casual")))
+bikeshare_silver_df = bikeshare_silver_df.select(*[F.trim(F.col(c[0])).alias(c[0]) if c[1] == 'string' else F.col(c[0]) for c in bikeshare_silver_df.dtypes])
+bikeshare_silver_df = bikeshare_silver_df.withColumn("member_casual", F.lower(F.col("member_casual")))
 
 # COMMAND ----------
 
 bikeshare_silver_df = bikeshare_silver_df.withColumn("_ingestion_timestamp", F.current_timestamp())
-bikeshare_silver_df = bikeshare_silver_df.withColumn("_source_file", F.F.col("_metadata.file_path"))
+bikeshare_silver_df = bikeshare_silver_df.withColumn("_source_file", F.col("_metadata.file_path"))
 
 # COMMAND ----------
 (
