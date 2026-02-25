@@ -9,9 +9,6 @@ catalog = dbutils.widgets.get("catalog")
 bronze_schema = dbutils.widgets.get("bronze_schema")
 source_bucket = dbutils.widgets.get("source_bucket")
 volume_name = dbutils.widgets.get("volume_name")
-
-# print(f"Running bronze with catalog={catalog}, bucket={source_bucket}")
-
 # COMMAND ----------
 
 # Create catalog if it doesn't exist
