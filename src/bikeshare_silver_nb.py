@@ -1,7 +1,15 @@
 # Databricks notebook source
-from pyspark.sql import functions as F 
 # COMMAND ----------
-# Parameters - will be overridden by DAB base_parameters
+import bs_transformations
+import subprocess
+import sys
+from pyspark.sql import functions as F
+# COMMAND ----------
+dbutils.widgets.text("whl_volume_path", "")
+whl_volume_path = dbutils.widgets.get("whl_volume_path")
+subprocess.check_call([sys.executable, "-m", "pip", "install", whl_volume_path, "--quiet"])
+
+# COMMAND ----------
 dbutils.widgets.text("catalog", "OVERRIDE_ME")
 dbutils.widgets.text("bronze_schema", "bronze")
 dbutils.widgets.text("silver_schema", "silver")

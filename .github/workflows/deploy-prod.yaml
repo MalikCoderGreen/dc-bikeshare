@@ -41,6 +41,12 @@ jobs:
           token = $DATABRICKS_TOKEN
           EOF
 
+      - name: Upload wheel to Volume
+        run: |
+          databricks fs cp --overwrite \
+            ./dist/bs_transformations-0.1.0-py3-none-any.whl \
+            /Volumes/prod_bikeshare/libs/packages/bs_transformations-0.1.0-py3-none-any.whl
+
       - name: Validate DAB
         run: databricks bundle validate --target prod
 
