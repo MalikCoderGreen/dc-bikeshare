@@ -1,5 +1,5 @@
 # Databricks notebook source
-
+from pyspark.sql import functions as F
 # COMMAND ----------
 dbutils.widgets.text("catalog", "OVERRIDE_ME")
 dbutils.widgets.text("silver_schema", "silver")
@@ -18,74 +18,15 @@ gold_schema = dbutils.widgets.get("gold_schema")
 bikeshare_gold_df = spark.read.table(f"{catalog}.{silver_schema}.dc_rideshare_st")
 
 # COMMAND ----------
-from pyspark.sql import functions as F
 
-bikeshare_gold_df = bikeshare_gold_df.withColumn("_data_quality_flag",
-    F.when(
-        (F.col("ride_duration_minutes") < 1) | (F.col("ride_duration_minutes") > 1440),
-        F.lit("suspicious_duration")
-    )
-    .when(
-        F.col("ride_distance_miles") / 1.6 > 50,
-        F.lit("suspicious_distance")
-    )
-    .when(
-        (F.col("trip_type") == "round_trip") & (F.col("ride_duration_minutes") < 5),
-        F.lit("same_station_short")
-    )
-    .when(
-        (F.col("ride_distance_miles") / (F.col("ride_duration_minutes") / 60)) > 30,
-        F.lit("outlier_speed")
-    )
-    .when(
-        F.col("start_station_name").isNull() | F.col("end_station_name").isNull(),
-        F.lit("missing_station_info")
-    )
-    .otherwise(F.lit("valid"))
-)
+
+bikeshare_gold_df = bikeshare_gold_df.withColumn("_data_quality_flag", bs_transformations.is_ride_supicious)
 
 bikeshare_gold_df = (bikeshare_gold_df.drop("_rescued_data", "is_valid")
                  .withColumn("ride_date", F.to_date("started_at"))
                  .withColumn("ride_month", F.expr(f"`{catalog}`.`{gold_schema}`.month_name(ride_month)"))
                  .withColumnRenamed("member_casual", "user_type")
                  .withColumn("day_of_week", F.expr(f"`{catalog}`.`{gold_schema}`.day_of_week(day_of_week)")))
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC CREATE OR REPLACE FUNCTION ${catalog}.${gold_schema}.day_of_week(day int)
-# MAGIC RETURNS STRING
-# MAGIC RETURN CASE 
-# MAGIC   WHEN day = 1 THEN 'Monday'
-# MAGIC   WHEN day = 2 THEN 'Tuesday'
-# MAGIC   WHEN day = 3 THEN 'Wednesday'
-# MAGIC   WHEN day = 4 THEN 'Thursday'
-# MAGIC   WHEN day = 5 THEN 'Friday'
-# MAGIC   WHEN day = 6 THEN 'Saturday'
-# MAGIC   WHEN day = 7 THEN 'Sunday'
-# MAGIC   ELSE 'Unknown'
-# MAGIC END;
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC CREATE OR REPLACE FUNCTION ${catalog}.${gold_schema}.month_name(month int)
-# MAGIC RETURNS STRING
-# MAGIC RETURN CASE
-# MAGIC   WHEN month = 1 THEN 'January'
-# MAGIC   WHEN month = 2 THEN 'February'
-# MAGIC   WHEN month = 3 THEN 'March'
-# MAGIC   WHEN month = 4 THEN 'April'
-# MAGIC   WHEN month = 5 THEN 'May'
-# MAGIC   WHEN month = 6 THEN 'June'
-# MAGIC   WHEN month = 7 THEN 'July'
-# MAGIC   WHEN month = 8 THEN 'August'
-# MAGIC   WHEN month = 9 THEN 'September'
-# MAGIC   WHEN month = 10 THEN 'October'
-# MAGIC   WHEN month = 11 THEN 'November'
-# MAGIC   WHEN month = 12 THEN 'December'
-# MAGIC   ELSE 'Unknown'
-# MAGIC END;
 
 # COMMAND ----------
 
@@ -97,9 +38,6 @@ fact_rides_df = bikeshare_gold_df
 fact_rides_df.write.mode("overwrite").option("mergeSchema", "true").saveAsTable(f"{catalog}.{gold_schema}.fact_rides_summary")
 
 # COMMAND ----------
-
-# create agg_station_metrics_daily
-
 # Create DataFrame for rides STARTED at each station
 df_starts = (bikeshare_gold_df
     .select(
@@ -169,7 +107,6 @@ df_station_metrics = (df_all_events
 df_station_metrics.write.mode("overwrite").saveAsTable(f"{catalog}.{gold_schema}.agg_station_metrics_daily")
 
 # COMMAND ----------
-
 user_behavior_df = bikeshare_gold_df
 user_behavior_df = user_behavior_df.groupBy(
     F.year("ride_date").alias("year"),
@@ -185,5 +122,4 @@ user_behavior_df = user_behavior_df.groupBy(
 )
 
 # COMMAND ----------
-
 user_behavior_df.write.mode("overwrite").option("overwriteSchema","true").saveAsTable(f"{catalog}.{gold_schema}.user_behavior")

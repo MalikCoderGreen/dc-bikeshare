@@ -52,6 +52,8 @@ resources:
               catalog: ${var.catalog}
               bronze_schema: ${var.bronze_schema}
               silver_schema: ${var.silver_schema}
+          libraries:
+            - whl: ./dist/bs_transformations-0.1.0-py3-none-any.whl
 
         - task_key: gold
           depends_on:
@@ -62,6 +64,8 @@ resources:
               catalog: ${var.catalog}
               silver_schema: ${var.silver_schema}
               gold_schema: ${var.gold_schema}
+          libraries:
+            - whl: ./dist/bs_transformations-0.1.0-py3-none-any.whl
 
 targets:
   dev:
