@@ -25,8 +25,10 @@ variables:
   volume_name:
     description: Volume name for raw data landing zone
     default: raw_landing_zone
-  whl_volume_path:
+  bst_whl_volume_path:
     description: Full path to bs_transformations whl in Unity Catalog Volume
+  dqx_whl_volume_path:
+    description: Full path to databricks-labs-dqx whl in Unity Catalog Volume
 
 resources:
   jobs:
@@ -44,6 +46,7 @@ resources:
               bronze_schema: ${var.bronze_schema}
               source_bucket: ${var.source_bucket}
               volume_name: ${var.volume_name}
+              dqx_whl_volume_path: ${var.dqx_whl_volume_path}
 
         - task_key: silver
           depends_on:
@@ -54,7 +57,8 @@ resources:
               catalog: ${var.catalog}
               bronze_schema: ${var.bronze_schema}
               silver_schema: ${var.silver_schema}
-              whl_volume_path: ${var.whl_volume_path}
+              bst_whl_volume_path: ${var.bst_whl_volume_path}
+              dqx_whl_volume_path: ${var.dqx_whl_volume_path}
 
         - task_key: gold
           depends_on:
@@ -65,7 +69,8 @@ resources:
               catalog: ${var.catalog}
               silver_schema: ${var.silver_schema}
               gold_schema: ${var.gold_schema}
-              whl_volume_path: ${var.whl_volume_path}
+              bst_whl_volume_path: ${var.bst_whl_volume_path}
+              dqx_whl_volume_path: ${var.dqx_whl_volume_path}
 
 targets:
   dev:
@@ -76,7 +81,8 @@ targets:
     variables:
       catalog: dev_bikeshare
       source_bucket: s3://bikeshare-dc-data-dev
-      whl_volume_path: /Volumes/dev_bikeshare/libs/packages/bs_transformations-0.1.0-py3-none-any.whl
+      bst_whl_volume_path: /Volumes/dev_bikeshare/libs/packages/bs_transformations-0.1.0-py3-none-any.whl
+      dqx_whl_volume_path: /Volumes/dev_bikeshare/libs/packages/databricks_labs_dqx-0.13.0-py3-none-any.whl
 
   staging:
     mode: production
@@ -86,7 +92,8 @@ targets:
     variables:
       catalog: staging_bikeshare
       source_bucket: s3://bikeshare-dc-data-staging
-      whl_volume_path: /Volumes/staging_bikeshare/libs/packages/bs_transformations-0.1.0-py3-none-any.whl
+      bst_whl_volume_path: /Volumes/staging_bikeshare/libs/packages/bs_transformations-0.1.0-py3-none-any.whl
+      dqx_whl_volume_path: /Volumes/staging_bikeshare/libs/packages/databricks_labs_dqx-0.13.0-py3-none-any.whl
 
   prod:
     mode: production
@@ -96,4 +103,5 @@ targets:
     variables:
       catalog: prod_bikeshare
       source_bucket: s3://bikeshare-dc-data-prod
-      whl_volume_path: /Volumes/prod_bikeshare/libs/packages/bs_transformations-0.1.0-py3-none-any.whl
+      bst_whl_volume_path: /Volumes/prod_bikeshare/libs/packages/bs_transformations-0.1.0-py3-none-any.whl
+      dqx_whl_volume_path: /Volumes/prod_bikeshare/libs/packages/databricks_labs_dqx-0.13.0-py3-none-any.whl

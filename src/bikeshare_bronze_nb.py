@@ -1,10 +1,25 @@
 # Databricks notebook source
-# Parameters - will be overridden by DAB base_parameters
+
+ # COMMAND ----------
+import subprocess
+import sys
+dqx_whl_volume_path = dbutils.widgets.get("dqx_whl_volume_path")
+subprocess.check_call([sys.executable, "-m", "pip", "install", dqx_whl_volume_path, "--quiet"])
+
+ # COMMAND ----------
+from databricks.labs.dqx.engine import DQEngine
+from databricks.labs.dqx.config import VolumeFileChecksStorageConfig
+from databricks.sdk import WorkspaceClient
+
+# COMMAND ----------
 dbutils.widgets.text("catalog", "OVERRIDE_ME")
 dbutils.widgets.text("bronze_schema", "bronze")
 dbutils.widgets.text("source_bucket", "s3://OVERRIDE_ME")
 dbutils.widgets.text("volume_name", "raw_landing_zone")
+dbutils.widgets.text("dqx_whl_volume_path", "OVERRIDE_ME")
 
+
+# COMMAND ----------
 catalog = dbutils.widgets.get("catalog")
 bronze_schema = dbutils.widgets.get("bronze_schema")
 source_bucket = dbutils.widgets.get("source_bucket")
@@ -15,31 +30,25 @@ volume_name = dbutils.widgets.get("volume_name")
 spark.sql(f"CREATE CATALOG IF NOT EXISTS {catalog}")
 
 # COMMAND ----------
-
-# Create bronze schema
 spark.sql(f"CREATE SCHEMA IF NOT EXISTS {catalog}.{bronze_schema}")
 
 # COMMAND ----------
-
-# Create external volume for raw data landing zone
 spark.sql(f"""
     CREATE EXTERNAL VOLUME IF NOT EXISTS {catalog}.{bronze_schema}.{volume_name}
     LOCATION '{source_bucket}/raw_landing_zone'
 """)
 
 # COMMAND ----------
-
-# Read streaming data using Auto Loader
-df = (spark.readStream.format("cloudFiles")
-    .option("cloudFiles.format", "csv")
-    .option("cloudFiles.schemaLocation", f"{source_bucket}/schema")
-    .option("cloudFiles.inferColumnTypes", "true")
+df = (spark.read.format("csv")
+    .option("header", "true")
+    .option("inferSchema", "true")
     .load(f"/Volumes/{catalog}/{bronze_schema}/{volume_name}/dc_share_data/")
 )
 
 # COMMAND ----------
-
-# Select only the columns we need for bronze table
+ws = WorkspaceClient()
+dq_engine = DQEngine(ws)
+# COMMAND ----------
 df = df.select(
     "ride_id", 
     "rideable_type", 
@@ -55,14 +64,22 @@ df = df.select(
     "end_lng", 
     "member_casual"
 )
+# COMMAND ----------
+df_quality_checks = dq_engine.load_checks(config=VolumeFileChecksStorageConfig(location=f"/Volumes/{catalog}/config_files/dqx_files/dqx_checks.yaml"))
+# COMMAND ----------
+valid_df, quarantined_df = dq_engine.apply_checks_by_metadata_and_split(df, df_quality_checks)
+# COMMAND ----------
+display(valid_df)
+# COMMAND ----------
+display(quarantined_df)
+# COMMAND ----------
+valid_df.write \
+    .format("delta") \
+    .mode("overwrite") \
+    .saveAsTable(f"{catalog}.{bronze_schema}.dc_rideshare_bt")
 
 # COMMAND ----------
-
-# Write stream to bronze Delta table
-writeStream = (df.writeStream
-    .format("delta")
-    .option("checkpointLocation", f"{source_bucket}/_checkpoints/bronze")
-    .trigger(availableNow=True)
-    .outputMode("append")
-    .toTable(f"{catalog}.{bronze_schema}.dc_rideshare_bt")
-)
+quarantined_df.write \
+    .format("delta") \
+    .mode("overwrite") \
+    .saveAsTable(f"{catalog}.{bronze_schema}.dc_rideshare_quarantined")
