@@ -4,16 +4,19 @@ import bs_transformations
 import subprocess
 import sys
 from pyspark.sql import functions as F
+
 # COMMAND ----------
-dbutils.widgets.text("whl_volume_path", "")
-whl_volume_path = dbutils.widgets.get("whl_volume_path")
-subprocess.check_call([sys.executable, "-m", "pip", "install", whl_volume_path, "--quiet"])
+dbutils.widgets.text("bst_whl_volume_path", "")
+dbutils.widgets.text("dqx_whl_volume_path", "OVERRIDE_ME")
+bst_whl_volume_path = dbutils.widgets.get("bst_whl_volume_path")
+subprocess.check_call([sys.executable, "-m", "pip", "install", bst_whl_volume_path, "--quiet"])
 
 # COMMAND ----------
 dbutils.widgets.text("catalog", "OVERRIDE_ME")
 dbutils.widgets.text("silver_schema", "silver")
 dbutils.widgets.text("gold_schema", "gold")
 
+# COMMAND ----------
 catalog = dbutils.widgets.get("catalog")
 silver_schema = dbutils.widgets.get("silver_schema")
 gold_schema = dbutils.widgets.get("gold_schema")
@@ -27,8 +30,6 @@ gold_schema = dbutils.widgets.get("gold_schema")
 bikeshare_gold_df = spark.read.table(f"{catalog}.{silver_schema}.dc_rideshare_st")
 
 # COMMAND ----------
-
-
 bikeshare_gold_df = bs_transformations._data_quality_flags(bikeshare_gold_df)
 
 bikeshare_gold_df = (bikeshare_gold_df.drop("_rescued_data", "is_valid")
@@ -38,12 +39,10 @@ bikeshare_gold_df = (bikeshare_gold_df.drop("_rescued_data", "is_valid")
                  .withColumn("day_of_week", F.expr(f"`{catalog}`.`{gold_schema}`.day_of_week(day_of_week)")))
 
 # COMMAND ----------
-
 # create fact_rides_summary
 fact_rides_df = bikeshare_gold_df
 
 # COMMAND ----------
-
 fact_rides_df.write.mode("overwrite").option("mergeSchema", "true").saveAsTable(f"{catalog}.{gold_schema}.fact_rides_summary")
 
 # COMMAND ----------
