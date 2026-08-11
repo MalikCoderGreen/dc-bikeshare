@@ -47,6 +47,7 @@ resources:
               source_bucket: ${var.source_bucket}
               volume_name: ${var.volume_name}
               dqx_whl_volume_path: ${var.dqx_whl_volume_path}
+              bundle_target: ${bundle.target}
 
         - task_key: silver
           depends_on:

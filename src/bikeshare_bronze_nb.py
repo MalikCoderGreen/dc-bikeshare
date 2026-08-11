@@ -17,6 +17,7 @@ dbutils.widgets.text("bronze_schema", "bronze")
 dbutils.widgets.text("source_bucket", "s3://OVERRIDE_ME")
 dbutils.widgets.text("volume_name", "raw_landing_zone")
 dbutils.widgets.text("dqx_whl_volume_path", "OVERRIDE_ME")
+dbutils.widgets.text("bundle_target", "dev")
 
 
 # COMMAND ----------
@@ -24,6 +25,7 @@ catalog = dbutils.widgets.get("catalog")
 bronze_schema = dbutils.widgets.get("bronze_schema")
 source_bucket = dbutils.widgets.get("source_bucket")
 volume_name = dbutils.widgets.get("volume_name")
+bundle_target = dbutils.widgets.get("bundle_target")
 # COMMAND ----------
 
 # Create catalog if it doesn't exist
@@ -69,9 +71,11 @@ df_quality_checks = dq_engine.load_checks(config=VolumeFileChecksStorageConfig(l
 # COMMAND ----------
 valid_df, quarantined_df = dq_engine.apply_checks_by_metadata_and_split(df, df_quality_checks)
 # COMMAND ----------
-display(valid_df)
+if bundle_target == "dev":
+    display(valid_df)
 # COMMAND ----------
-display(quarantined_df)
+if bundle_target == "dev":
+    display(quarantined_df)
 # COMMAND ----------
 valid_df.write \
     .format("delta") \
