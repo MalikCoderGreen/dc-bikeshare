@@ -5,8 +5,7 @@ bundle:
   uuid: 7eb02bd5-9ad3-47c4-ade2-a9c1d268cc4d
 
 include:
-  - resources/*.yml
-  - resources/*/*.yml
+  - resources/**/*.yml
 
 variables:
   catalog:
@@ -29,49 +28,6 @@ variables:
     description: Full path to bs_transformations whl in Unity Catalog Volume
   dqx_whl_volume_path:
     description: Full path to databricks-labs-dqx whl in Unity Catalog Volume
-
-resources:
-  jobs:
-    bikeshare_etl:
-      name: bikeshare_etl_${bundle.target}
-      email_notifications:
-        on_failure:
-          - green.leek47@gmail.com
-      tasks:
-        - task_key: bronze
-          notebook_task:
-            notebook_path: ./src/bikeshare_bronze_nb.py
-            base_parameters:
-              catalog: ${var.catalog}
-              bronze_schema: ${var.bronze_schema}
-              source_bucket: ${var.source_bucket}
-              volume_name: ${var.volume_name}
-              dqx_whl_volume_path: ${var.dqx_whl_volume_path}
-              bundle_target: ${bundle.target}
-
-        - task_key: silver
-          depends_on:
-            - task_key: bronze
-          notebook_task:
-            notebook_path: ./src/bikeshare_silver_nb.py
-            base_parameters:
-              catalog: ${var.catalog}
-              bronze_schema: ${var.bronze_schema}
-              silver_schema: ${var.silver_schema}
-              bst_whl_volume_path: ${var.bst_whl_volume_path}
-              dqx_whl_volume_path: ${var.dqx_whl_volume_path}
-
-        - task_key: gold
-          depends_on:
-            - task_key: silver
-          notebook_task:
-            notebook_path: ./src/bikeshare_gold_nb.py
-            base_parameters:
-              catalog: ${var.catalog}
-              silver_schema: ${var.silver_schema}
-              gold_schema: ${var.gold_schema}
-              bst_whl_volume_path: ${var.bst_whl_volume_path}
-              dqx_whl_volume_path: ${var.dqx_whl_volume_path}
 
 targets:
   dev:
