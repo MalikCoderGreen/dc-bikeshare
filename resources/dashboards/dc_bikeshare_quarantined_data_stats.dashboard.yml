@@ -4,3 +4,4 @@ resources:
       display_name: "DC-BikeShare quarantined data stats"
       warehouse_id: 7e154ac51f0ad7b2
       file_path: ../../src/dc_bikeshare_quarantined_data_stats.lvdash.json
+      parent_path: /Users/green.malik5@gmail.com
